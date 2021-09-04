@@ -13,3 +13,13 @@ export async function fetchQuestionById(id: number): Promise<Question> {
 export async function getNextUnansweredQuestion(): Promise<Question> {
   return await fetch(`${serviceUrl}/one?type=FIRST_UNANSWERED`).then(r => r.json() as Promise<Question>);
 }
+
+export async function setAnswer(questionId: number, answerId: number) {
+  return await fetch(`${serviceUrl}/one/${questionId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({answerId})
+  });
+}
