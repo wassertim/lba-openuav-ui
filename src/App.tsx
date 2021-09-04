@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { Home } from './Home';
 import {QuestionList} from "./questions/QuestionList";
+import {QuestionView} from "./questions/QuestionView";
 
 export default function App() {
   return (
@@ -21,12 +22,9 @@ export default function App() {
             </li>
           </ul>
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/questions">
-              <QuestionList />
-            </Route>
+            <Route exact path="/" children={<Home />} />
+            <Route path="/questions/:questionId" children={<QuestionView />} />
+            <Route path="/questions" children={<QuestionList />} />
           </Switch>
         </div>
       </Router>
