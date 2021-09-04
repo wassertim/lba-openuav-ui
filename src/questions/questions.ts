@@ -9,3 +9,7 @@ export async function fetchAllQuestions(): Promise<Question[]> {
 export async function fetchQuestionById(id: number): Promise<Question> {
   return await fetch(`${serviceUrl}/one/${id}`).then(r => r.json() as Promise<Question>);
 }
+
+export async function getNextUnansweredQuestion(): Promise<Question> {
+  return await fetch(`${serviceUrl}/one?type=FIRST_UNANSWERED`).then(r => r.json() as Promise<Question>);
+}
