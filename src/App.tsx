@@ -13,7 +13,7 @@ export default function App() {
   return (
       <Router>
         <div className="container">
-          <ul className="nav nav-pills">
+          <ul className="nav nav-pills mt-3">
             <li className="nav-item">
               <NavLink exact className="nav-link" activeClassName="active" to="/">Home</NavLink>
             </li>

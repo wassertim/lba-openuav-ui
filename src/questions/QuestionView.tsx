@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
-import {fetchQuestionById, getNextUnansweredQuestion, setAnswer} from './questions';
+import {fetchQuestionById, getNextUnansweredQuestion, setAnswer} from './fetch/questions';
 import {Question} from './model/question';
-import {useParams} from "react-router-dom";
-import {QuestionParams} from "./model/question-params";
-import {inputsHandler} from "../util/input-handler";
+import {useParams} from 'react-router-dom';
+import {QuestionParams} from './model/question-params';
+import {inputsHandler} from '../util/input-handler';
 
 export function QuestionView() {
   const [question, setQuestion] = useState({} as Question);
@@ -36,7 +36,7 @@ export function QuestionView() {
   }
 
   return (
-      <div className="card text-dark bg-light mt-3">
+      <div className="card text-dark bg-light mt-4">
         <div className="card-header">Question #{question.id}</div>
         <div className="card-body">
           <p className="card-text">
@@ -61,7 +61,7 @@ export function QuestionView() {
                   </li>
               )}
             </ul>
-            <button className="card-link btn-link btn" type="submit">
+            <button className="card-link btn-link btn mt-3" type="submit">
               Next Question
             </button>
           </form>

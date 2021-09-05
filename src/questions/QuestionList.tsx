@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import {fetchAllQuestions} from './questions';
+import {fetchAllQuestions} from './fetch/questions';
 import {Question} from './model/question';
 
 export function QuestionList() {

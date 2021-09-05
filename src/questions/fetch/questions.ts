@@ -1,4 +1,4 @@
-import {Question} from "./model/question";
+import {Question} from '../model/question';
 
 const serviceUrl = 'http://127.0.0.1:4010/questions';
 
