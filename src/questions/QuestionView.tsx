@@ -3,31 +3,38 @@ import {fetchQuestionById, getNextUnansweredQuestion, setAnswer} from './questio
 import {Question} from './model/question';
 import {useParams} from "react-router-dom";
 import {QuestionParams} from "./model/question-params";
+import {inputsHandler} from "../util/input-handler";
 
 export function QuestionView() {
   const [question, setQuestion] = useState({} as Question);
-  const [selectedAnswer, setSelectedAnswer] = useState({answerId: ""} as Record<string, string>);
+  const [selectedAnswer, setSelectedAnswer] = useState({answerId: undefined} as Record<string, number | undefined>);
   let {questionId} = useParams<QuestionParams>();
+
+  const initialize = (question: Question) => {
+    const answer = question.answers.find(a => a.guessedAsCorrect);
+    setQuestion(question);
+    setSelectedAnswer({answerId: answer?.id});
+
+    return question;
+  };
 
   useEffect(() => {
     (async () => {
-      let q = await fetchQuestionById(+questionId);
-      console.log('question', q);
-      setQuestion(q);
+      initialize(await fetchQuestionById(+questionId));
     })();
   }, [questionId]);
   const goToNextQuestion = (e: any) => {
-    e.preventDefault();
     (async () => {
-      await setAnswer(question.id, +selectedAnswer['answerId']);
-      let q = await getNextUnansweredQuestion();
-      window.history.replaceState(null, "New Page Title", `/questions/${q.id}`);
-      setQuestion(q);
+      e.preventDefault();
+      if (!selectedAnswer['answerId']) {
+        return console.error('answer is not selected');
+      }
+      await setAnswer(+questionId, +selectedAnswer['answerId']);
+      const question = initialize(await getNextUnansweredQuestion());
+      window.history.replaceState(null, "New Page Title", `/questions/${question.id}`);
     })();
   }
-  const inputsHandler = (e: any) => {
-    setSelectedAnswer({[(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement).value});
-  }
+
   return (
       <div className="card text-dark bg-light mt-3">
         <div className="card-header">Question #{question.id}</div>
@@ -45,8 +52,9 @@ export function QuestionView() {
                           type="radio"
                           className="form-check-input"
                           value={qa.id}
+                          checked={selectedAnswer.answerId === qa.id}
                           name="answerId"
-                          onChange={inputsHandler}
+                          onChange={(e) => inputsHandler(e, setSelectedAnswer)}
                       />
                       <label htmlFor={`answer-${index}`} className="form-check-label">{qa.text}</label>
                     </div>
