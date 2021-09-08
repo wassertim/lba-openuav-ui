@@ -17,7 +17,7 @@ export function QuestionList() {
         {
           questions.map((question, index) => (
               <div key={index}>
-                <Link to={`/questions/${question.id.toString()}`}>{question.text}</Link>
+                <Link to={`/questions/${question.id.toString()}`}>{question.questionText}</Link>
               </div>
           ))
         }

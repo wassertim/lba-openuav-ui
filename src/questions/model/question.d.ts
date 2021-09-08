@@ -1,10 +1,11 @@
 import {QuestionAnswer} from "./question-answer";
-import {QuestionStructure} from "./question-structure";
 
 export interface Question {
   id: number;
-  text: string;
+  questionText: string;
   questionType: string;
-  structure?: QuestionStructure;
+  questionStructure?: string;
+  structureId: number;
+  comment?: string;
   answers: QuestionAnswer[];
 }
