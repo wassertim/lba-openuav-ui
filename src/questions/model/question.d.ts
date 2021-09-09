@@ -4,8 +4,9 @@ export interface Question {
   id: number;
   questionText: string;
   questionType: string;
-  questionStructure?: string;
+  questionStructure: string;
   structureId: number;
-  comment?: string;
+  comment: string;
   answers: QuestionAnswer[];
+  url: string;
 }

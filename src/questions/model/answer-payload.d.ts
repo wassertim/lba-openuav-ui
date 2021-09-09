@@ -4,6 +4,7 @@ export interface AnswerPayload {
 }
 
 export interface AnswerState {
-  answerId?: string;
-  comment?: string;
+  url: string;
+  answerId: string;
+  comment: string;
 }
